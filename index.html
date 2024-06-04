@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hopping Images</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background-color: #000000;
+        }
+        #top-image {
+            width: 50%;
+            max-width: 600px;
+            margin-top: 20px;
+            z-index: 1;
+        }
+        .bottom-images {
+            position: absolute;
+            width: 100%;
+            height: 150px;
+            margin-top: auto;
+            overflow: hidden;
+            z-index: 3;
+            bottom: 0%;
+        }
+        .bottom-images img {
+            position: absolute;
+            bottom: 0%;
+            width: 100px;
+            height: 100px;
+            animation: hop 2s infinite ease-in-out;
+            z-index: 3;
+            transition: transform 1.5s ease;
+        }
+        @keyframes hop {
+            0% { bottom: 0%; }
+            50% { bottom: 25%; }
+            100% { bottom: 0%; }
+        }
+    </style>
+</head>
+<body>
+    <img id="top-image" src="Untitled design.png" alt="Top Image">
+    <div class="bottom-images">
+        <img src="image.png" alt="Small Image 1" style="left: 10%;">
+        <img src="image.png" alt="Small Image 2" style="left: 25%;">
+        <img src="image.png" alt="Small Image 3" style="left: 50%;">
+        <img src="image.png" alt="Small Image 4" style="left: 65%;">
+        <img src="image.png" alt="Small Image 5" style="left: 80%;">
+    </div>
+    <script>
+        const images = document.querySelectorAll('.bottom-images img');
+    
+        images.forEach((img, index) => {
+            const delay = Math.random() * 2; // Random delay between 0 and 2 seconds
+            img.style.animationDelay = `${delay}s`;
+    
+            setInterval(() => {
+                const shouldMove = Math.random() < 0.1; // 50% chance of moving
+                if (shouldMove) {
+                    const moveAmount = Math.random() < 0.5 ? -50 : 50; // Randomly move left or right
+                    img.style.transform = `translateX(${moveAmount}px)`;
+                }
+            }, 100);
+        });
+    </script>
+    
+
+</body>
+</html>
